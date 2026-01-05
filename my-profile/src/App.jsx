@@ -19,10 +19,10 @@ function App() {
     <h1>My Team Portfolio</h1>
     {githubData ? (
       <ProfileCard
-        name="ศิริกร ใจศรี"
-        role="Student @ CEDT"
-        bio="ใจกลางเมืองมีแต่ตึกใจความรู้สึกมีแต่เทอ"
-      />
+          name={githubData.name || githubData.login}
+          role="GitHub User"
+          bio={githubData.bio || "No bio available"}
+        />
     ) : (<p>Loading data from GitHub...</p>
     )}
     </div>
