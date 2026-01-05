@@ -1,20 +1,30 @@
+import { useState,  useEffect } from 'react';
 import ProfileCard from './components/ProfileCard.jsx';
 
 function App() {
+  const [githubData, setGithubData] = useState(null);
+  const username = "peeppeep0505";
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${username}`)
+    .then(res => res.json())
+    .then (data => {
+
+    setGithubData (data);
+    })
+    .catch(err => console.error(err));
+  },[]); 
 
   return (
-   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}> 
+   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' , textAlign: 'center'}}> 
     <h1>My Team Portfolio</h1>
+    {githubData ? (
       <ProfileCard
         name="ศิริกร ใจศรี"
         role="Student @ CEDT"
         bio="ใจกลางเมืองมีแต่ตึกใจความรู้สึกมีแต่เทอ"
       />
-      <ProfileCard
-        name="John Doе"
-        role="Guest Developer"
-        bio="I love coding and learning new things."
-      />
+    ) : (<p>Loading data from GitHub...</p>
+    )}
     </div>
   );
 }
